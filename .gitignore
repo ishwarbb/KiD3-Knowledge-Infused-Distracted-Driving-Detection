@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.ipynb_checkpoints/
+
+# Model checkpoints and run caches
+*.pth
+*.pt
+cache/
+
+# Generated datasets and preprocessing outputs
+Datasets/
+results/
+pose/
+objects/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

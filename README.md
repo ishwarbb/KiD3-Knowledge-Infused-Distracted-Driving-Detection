@@ -14,13 +14,21 @@ This repository presents the implementation of KiD3, a novel method for distract
 
 ### Prerequisites
 
-1. Clone the [RelTR repository](https://github.com/yrcong/RelTR/tree/main) into the RelTR folder of this repository and replace the inference.py file with the one provided in the RelTR folder of this repository. Make sure to follow the installation instructions provided in the RelTR repository (including downloading the pre-trained models).
+Install the Python dependencies (Python 3.9+ recommended):
 
-2. Similarly, clone the [OpenPose repository](https://github.com/Hzzone/pytorch-openpose) into the OpenPose folder of this repository and add the openpose.py file provided in the OpenPose folder of this repository. Make sure to follow the installation instructions provided in the OpenPose repository (including downloading the pre-trained models).
+```bash
+pip install -r requirements.txt
+```
+
+This project also builds on two external repositories:
+
+1. Clone the [RelTR repository](https://github.com/yrcong/RelTR/tree/main) into the `RelTR` folder of this repository and replace the `inference.py` file with the one provided in the `RelTR` folder of this repository. Make sure to follow the installation instructions provided in the RelTR repository (including downloading the pre-trained models).
+
+2. Similarly, clone the [OpenPose repository](https://github.com/Hzzone/pytorch-openpose) into the `Openpose` folder of this repository and add the `openpose.py` file provided in the `Openpose` folder of this repository. Make sure to follow the installation instructions provided in the OpenPose repository (including downloading the pre-trained models).
 
 ### Data Preparation
 
-1. Download the SynDD1 dataset by filling up the form [here](https://data.mendeley.com/datasets/ptcp7rp3wb/4) and annotate every frame with the corresponding driver's action label and save the fames in `'{user_id}_{minute}_{second}_{label}.jpg'` format. Do this for all videos in the dataset and save then in the Datasets/annotatedvideosv1/AnnotatedVideos/{video_name} folder.
+1. Download the SynDD1 dataset by filling up the form [here](https://data.mendeley.com/datasets/ptcp7rp3wb/4) and annotate every frame with the corresponding driver's action label and save the frames in `'{user_id}_{minute}_{second}_{label}.jpg'` format. Do this for all videos in the dataset and save them in the `Datasets/annotatedvideosv1/AnnotatedVideos/{video_name}` folder.
 
 2. Extract the scene graphs for each frame by running `Preprocessing/scene_graph.py`. Running this will create a sceneGraphs.json file in each of the Datasets/annotatedvideosv1/AnnotatedVideos/{video_name} folders corresponding to each video. Make sure you have a GPU on your device, else this won't run.
 
@@ -30,19 +38,19 @@ This repository presents the implementation of KiD3, a novel method for distract
 
 4. Extract the object features for each frame by running `Preprocessing/yolo_objects.py`. This creates the `objects` directory with {video_name}.json files for each video.
 
-5. Constuct the peripheral information for each frame by running `Preprocessing/distances.py`
+5. Construct the peripheral information for each frame by running `Preprocessing/distances.py`
 
-6. Get the image embeddings for each frame by running `Preprocessing/image_embeddings.py`. To run the file, the model.pth file of any VGG-16 model can be used. Download the pretrained model from INCOMPLETE. This creates an imageEmbeddings.json file in Datasets/annotatedvideosv1/AnnotatedVideos/{video_name} directories for each video.
+6. Get the image embeddings for each frame by running `Preprocessing/image_embeddings.py`. This script loads a VGG-16 network whose classifier head is replaced with an 18-way linear layer and fine-tuned on the driver-action classes, expected as `model.pth` in the repository root. Place this fine-tuned checkpoint at the repo root before running. This creates an `imageEmbeddings.json` file in `Datasets/annotatedvideosv1/AnnotatedVideos/{video_name}` directories for each video.
 
 7. Run `Data Preparation/handle_peripheral_inputs.py`. This will store the combined peripheral inputs in `results/ALL.json`.
 
-8. Run `Data Preparation/copy_frames_and_combine_jsons.py`. This will store all the combined scene graph and image embeddings in Dataset/annotatedvideosv1/AnnotatedVideos/ALL/frames.
+8. Run `Data Preparation/copy_frames_and_combine_jsons.py`. This will store all the combined scene graph and image embeddings in `Datasets/annotatedvideosv1/AnnotatedVideos/ALL/frames`.
 
 9.  Run `Data Preparation/split_data.py` to create the train, eval and test split.
 
 ### Training and Evaluation
 
-Run experiments by running `experiments.py`. The results will be displayed in the console.
+Run experiments by running `experiment.py`. The results will be displayed in the console.
 
 ## Citation
 

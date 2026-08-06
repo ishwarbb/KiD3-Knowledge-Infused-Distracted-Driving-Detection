@@ -1,0 +1,20 @@
+# Python dependencies for KiD3's own code.
+# The external RelTR and OpenPose repositories have their own requirements.
+#
+# Note: torch-geometric must match your installed torch / CUDA build. See
+# https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html
+
+torch
+torchvision
+torch-geometric
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+Pillow
+opencv-python
+ultralytics
+icecream
+tqdm
+ipython
